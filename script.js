@@ -23,12 +23,16 @@ createList();
 
 // Create list items
 function createList() {
-  [...richestPeople].forEach((person, index) => {
-    const listItem = document.createElement("li");
+  [...richestPeople]
+    .map((item) => ({ value: item, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((item) => item.value)
+    .forEach((person, index) => {
+      const listItem = document.createElement("li");
 
-    listItem.setAttribute("data-index", index);
+      listItem.setAttribute("data-index", index);
 
-    listItem.innerHTML = `
+      listItem.innerHTML = `
         <span class="number">${index + 1}</span>
         <div class="draggable" draggable="true">
             <p class="person-name">${person}</p>
@@ -36,8 +40,8 @@ function createList() {
         </div>
     `;
 
-    listItems.push(listItem);
+      listItems.push(listItem);
 
-    draggable_list.appendChild(listItem)
-  });
+      draggable_list.appendChild(listItem);
+    });
 }
